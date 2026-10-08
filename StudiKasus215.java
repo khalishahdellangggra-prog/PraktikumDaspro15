@@ -4,18 +4,15 @@ public class StudiKasus215 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // Input Data Utama
         System.out.print("Nama mahasiswa : ");
         String nama = sc.nextLine();
 
         System.out.print("Jenis kegiatan (BELMAWA/BAKORMA/MANDIRI/PKM/LAINNYA): ");
         String jenisKegiatan = sc.nextLine();
 
-        // Variabel penampung
         boolean berhakDana = false;
         String alasan = "";
 
-        // Cabang Lomba (BELMAWA / BAKORMA / MANDIRI)
         if (jenisKegiatan.equalsIgnoreCase("BELMAWA") || 
             jenisKegiatan.equalsIgnoreCase("BAKORMA") || 
             jenisKegiatan.equalsIgnoreCase("MANDIRI")) {
@@ -28,6 +25,35 @@ public class StudiKasus215 {
             } else {
                 alasan = "Tidak memperoleh dana penghargaan (hanya untuk Juara 1/2/3).";
             }
+        } else if (jenisKegiatan.equalsIgnoreCase("PKM")) {
+
+            System.out.print("Status pendanaan PKM (1 = lolos, 0 = tidak lolos): ");
+            int statusPKM = sc.nextInt();
+
+            if (statusPKM == 1) {
+                berhakDana = true;
+            } else {
+                alasan = "Tidak memperoleh dana penghargaan (PKM tidak lolos pendanaan).";
+            }
+
+        } else {
+            alasan = "Tidak memperoleh dana penghargaan (jenis kegiatan tidak termasuk ketentuan).";
         }
+
+        if (berhakDana) {
+            System.out.print("Jumlah dokumen yang diupload (0-4): ");
+            int jumlahDokumen = sc.nextInt();
+
+            if (jumlahDokumen == 4) {
+                System.out.println("Status: Berhak memperoleh dana penghargaan.");
+            } else {
+                int kurang = 4 - jumlahDokumen;
+                System.out.println("Status: Dokumen tidak lengkap (kurang " + kurang + " dokumen). Dana penghargaan tidak diberikan.");
+            }
+        } else {
+            System.out.println("Status: " + alasan);
+        }
+
+        sc.close();
     }
 }
